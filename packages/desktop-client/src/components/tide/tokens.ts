@@ -55,6 +55,7 @@ export const tideSectionLabel: CSSProperties = {
 
 export const tidePill = (background: string, color: string): CSSProperties => ({
   display: 'inline-flex',
+  flexDirection: 'row',
   alignItems: 'center',
   gap: 6,
   padding: '4px 12px',

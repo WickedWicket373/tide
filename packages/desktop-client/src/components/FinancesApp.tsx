@@ -39,6 +39,7 @@ import { useMultiuserEnabled } from './ServerContext';
 import { Settings } from './settings';
 import { FloatableSidebar } from './sidebar';
 import { ManageTagsPage } from './tags/ManageTagsPage';
+import { TideDashboard } from './tide/dashboard/TideDashboard';
 import { Titlebar } from './Titlebar';
 import { Tour } from './tour/Tour';
 import { TourAutoOffer } from './tour/TourAutoOffer';
@@ -250,8 +251,10 @@ export function FinancesApp() {
                   <Routes>
                     <Route
                       path="/"
-                      element={<Navigate to="/budget" replace />}
+                      element={<Navigate to="/dashboard" replace />}
                     />
+
+                    <Route path="/dashboard" element={<TideDashboard />} />
 
                     <Route path="/reports/*" element={<Reports />} />
 

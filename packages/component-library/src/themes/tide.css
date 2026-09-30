@@ -4,8 +4,9 @@
  * stock light theme are overridden below. Spec: tide/DESIGN.md.
  */
 :root {
-  --font-family: 'Figtree Variable', -apple-system, BlinkMacSystemFont,
-    'Helvetica Neue', sans-serif;
+  --font-family:
+    'Figtree Variable', -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+    sans-serif;
 
   --palette-purple50: #f1faf7;
   --palette-purple100: #e3f4ef;
