@@ -61,7 +61,7 @@ export function PrimaryButtons() {
       <Item
         title={t('Transactions')}
         Icon={SvgTideCard}
-        to="/accounts"
+        to="/transactions"
         badge={
           uncategorizedCount ? (
             <TideCountBadge count={uncategorizedCount} />

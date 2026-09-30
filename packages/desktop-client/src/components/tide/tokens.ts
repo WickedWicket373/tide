@@ -73,3 +73,23 @@ export function progressColor(percent: number, isFixed = false) {
   if (!isFixed && percent >= 90) return tideColors.nearLimit;
   return tideColors.onTrack;
 }
+
+const CATEGORY_TONES: ReadonlyArray<{ bg: string; fg: string; dot: string }> = [
+  { bg: '#e1f4ee', fg: '#0a6e57', dot: '#2fa36b' },
+  { bg: '#fbe7e1', fg: '#b3452b', dot: '#e26b4a' },
+  { bg: '#ece6fa', fg: '#5b3fb0', dot: '#8466d8' },
+  { bg: '#fbf0d6', fg: '#8a6410', dot: '#d9a21b' },
+  { bg: '#f1e7dd', fg: '#7a5230', dot: '#a0724a' },
+  { bg: '#e2ebfb', fg: '#2f5db8', dot: '#4f7fda' },
+  { bg: '#dff0f8', fg: '#1f6d9a', dot: '#3a8dc2' },
+  { bg: '#fae4ee', fg: '#a8386b', dot: '#d2588f' },
+];
+
+/** Stable soft color for a category pill, picked from its id. */
+export function categoryTone(id: string) {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
+  }
+  return CATEGORY_TONES[hash % CATEGORY_TONES.length];
+}

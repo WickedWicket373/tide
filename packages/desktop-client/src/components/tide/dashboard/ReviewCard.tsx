@@ -17,13 +17,13 @@ type ReviewCardProps = {
 };
 
 /**
- * Transactions that still need attention. Until the review inbox lands
- * (phase 3), "needs review" means "has no category yet".
+ * Transactions that still need attention: on-budget spending with no
+ * category yet. Links into the Transactions page's "To review" view.
  */
 export function ReviewCard({ rows, totalCount }: ReviewCardProps) {
   const { t } = useTranslation();
   const money = useTideMoney();
-  const reviewPath = '/categories/uncategorized';
+  const reviewPath = '/transactions?view=review';
 
   return (
     <View

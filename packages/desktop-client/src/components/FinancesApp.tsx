@@ -40,6 +40,7 @@ import { Settings } from './settings';
 import { FloatableSidebar } from './sidebar';
 import { ManageTagsPage } from './tags/ManageTagsPage';
 import { TideDashboard } from './tide/dashboard/TideDashboard';
+import { TideTransactions } from './tide/transactions/TideTransactions';
 import { Titlebar } from './Titlebar';
 import { Tour } from './tour/Tour';
 import { TourAutoOffer } from './tour/TourAutoOffer';
@@ -255,6 +256,10 @@ export function FinancesApp() {
                     />
 
                     <Route path="/dashboard" element={<TideDashboard />} />
+                    <Route
+                      path="/transactions"
+                      element={<TideTransactions />}
+                    />
 
                     <Route path="/reports/*" element={<Reports />} />
 
