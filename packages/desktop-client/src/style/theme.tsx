@@ -4,8 +4,10 @@ import darkThemeCss from '@actual-app/components/themes/dark.css?inline';
 import lightThemeCss from '@actual-app/components/themes/light.css?inline';
 import midnightThemeCss from '@actual-app/components/themes/midnight.css?inline';
 import paletteCss from '@actual-app/components/themes/palette.css?inline';
+import tideThemeCss from '@actual-app/components/themes/tide.css?inline';
 import type { DarkTheme, Theme } from '@actual-app/core/types/prefs';
 
+import { TIDE_THEME_ONLY } from '#components/tide/config';
 import { useGlobalPref } from '#hooks/useGlobalPref';
 
 import {
@@ -19,6 +21,7 @@ const themes = {
   light: { name: 'Light', colors: lightThemeCss },
   dark: { name: 'Dark', colors: darkThemeCss },
   midnight: { name: 'Midnight', colors: midnightThemeCss },
+  tide: { name: 'Tide', colors: `${lightThemeCss}\n${tideThemeCss}` },
   auto: { name: 'System default', colors: darkThemeCss },
 } as const;
 
@@ -104,6 +107,10 @@ export function ThemeStyle() {
   const [themeColors, setThemeColors] = useState<string | undefined>(undefined);
 
   useEffect(() => {
+    if (TIDE_THEME_ONLY) {
+      setThemeColors(themes.tide.colors);
+      return;
+    }
     if (activeTheme === 'auto') {
       const installedLight = parseInstalledTheme(installedCustomLightThemeJson);
       const installedDark = parseInstalledTheme(installedCustomDarkThemeJson);
@@ -239,7 +246,7 @@ export function CustomThemeStyle() {
     customCssOverride,
   ]);
 
-  if (!validatedCss) {
+  if (TIDE_THEME_ONLY || !validatedCss) {
     return null;
   }
 

@@ -2,22 +2,27 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 
-import {
-  SvgCheveronDown,
-  SvgCheveronRight,
-  SvgCog,
-  SvgCreditCard,
-  SvgReports,
-  SvgStoreFront,
-  SvgTag,
-  SvgTuning,
-  SvgWallet,
-} from '@actual-app/components/icons/v1';
-import { SvgCalendar3 } from '@actual-app/components/icons/v2';
 import { View } from '@actual-app/components/view';
 
+import {
+  SvgTideBank,
+  SvgTideCalendar,
+  SvgTideCard,
+  SvgTideChart,
+  SvgTideChevronDown,
+  SvgTideChevronRight,
+  SvgTideHome,
+  SvgTidePie,
+  SvgTideRules,
+  SvgTideSettings,
+  SvgTideStore,
+  SvgTideTag,
+} from '#components/tide/icons';
+import { TideCountBadge } from '#components/tide/TideCountBadge';
 import { useIsTestEnv } from '#hooks/useIsTestEnv';
+import { useSheetValue } from '#hooks/useSheetValue';
 import { useSyncServerStatus } from '#hooks/useSyncServerStatus';
+import * as bindings from '#spreadsheet/bindings';
 
 import { Item } from './Item';
 import { SecondaryItem } from './SecondaryItem';
@@ -27,15 +32,19 @@ export function PrimaryButtons() {
   const [isOpen, setOpen] = useState(false);
   const onToggle = useCallback(() => setOpen(open => !open), []);
   const location = useLocation();
+  const uncategorizedCount = useSheetValue(bindings.uncategorizedCount());
 
   const syncServerStatus = useSyncServerStatus();
   const isTestEnv = useIsTestEnv();
   const isUsingServer = syncServerStatus !== 'no-server' || isTestEnv;
 
   const isActive = [
+    '/reports',
+    '/schedules',
     '/payees',
     '/rules',
     '/bank-sync',
+    '/tags',
     '/settings',
     '/tools',
   ].some(route => location.pathname.startsWith(route));
@@ -48,49 +57,70 @@ export function PrimaryButtons() {
 
   return (
     <View data-testid="sidebar-primary-buttons" style={{ flexShrink: 0 }}>
-      <Item title={t('Budget')} Icon={SvgWallet} to="/budget" />
-      <Item title={t('Reports')} Icon={SvgReports} to="/reports" />
-      <Item title={t('Schedules')} Icon={SvgCalendar3} to="/schedules" />
+      <Item title={t('Dashboard')} Icon={SvgTideHome} to="/dashboard" />
+      <Item
+        title={t('Transactions')}
+        Icon={SvgTideCard}
+        to="/accounts"
+        badge={
+          uncategorizedCount ? (
+            <TideCountBadge count={uncategorizedCount} />
+          ) : null
+        }
+      />
+      <Item title={t('Budget')} Icon={SvgTidePie} to="/budget" />
       <Item
         title={t('More')}
-        Icon={isOpen ? SvgCheveronDown : SvgCheveronRight}
+        Icon={isOpen ? SvgTideChevronDown : SvgTideChevronRight}
         onClick={onToggle}
-        style={{ marginBottom: isOpen ? 8 : 0 }}
+        style={{ marginBottom: isOpen ? 4 : 0 }}
         forceActive={!isOpen && isActive}
       />
       {isOpen && (
         <>
           <SecondaryItem
+            title={t('Reports')}
+            Icon={SvgTideChart}
+            to="/reports"
+            indent={8}
+          />
+          <SecondaryItem
+            title={t('Recurring')}
+            Icon={SvgTideCalendar}
+            to="/schedules"
+            indent={8}
+          />
+          <SecondaryItem
             title={t('Payees')}
-            Icon={SvgStoreFront}
+            Icon={SvgTideStore}
             to="/payees"
-            indent={15}
+            indent={8}
           />
           <SecondaryItem
             title={t('Rules')}
-            Icon={SvgTuning}
+            Icon={SvgTideRules}
             to="/rules"
-            indent={15}
+            indent={8}
           />
           {isUsingServer && (
             <SecondaryItem
               title={t('Bank Sync')}
-              Icon={SvgCreditCard}
+              Icon={SvgTideBank}
               to="/bank-sync"
-              indent={15}
+              indent={8}
             />
           )}
           <SecondaryItem
             title={t('Tags')}
-            Icon={SvgTag}
+            Icon={SvgTideTag}
             to="/tags"
-            indent={15}
+            indent={8}
           />
           <SecondaryItem
             title={t('Settings')}
-            Icon={SvgCog}
+            Icon={SvgTideSettings}
             to="/settings"
-            indent={15}
+            indent={8}
           />
         </>
       )}

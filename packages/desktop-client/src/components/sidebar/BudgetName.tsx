@@ -13,6 +13,8 @@ import { isElectron } from '@actual-app/core/shared/environment';
 import * as Platform from '@actual-app/core/shared/platform';
 
 import { closeBudget } from '#budgetfiles/budgetfilesSlice';
+import { TIDE_APP_NAME } from '#components/tide/config';
+import { TideLogoMark } from '#components/tide/TideLogo';
 import { useContextMenu } from '#hooks/useContextMenu';
 import { useMetadataPref } from '#hooks/useMetadataPref';
 import { useNavigate } from '#hooks/useNavigate';
@@ -33,7 +35,7 @@ export function BudgetName({ children }: BudgetNameProps) {
         height: 30,
         flexDirection: 'row',
         alignItems: 'center',
-        margin: '0 8px 23px 20px',
+        margin: '0 8px 18px 20px',
         userSelect: 'none',
         transition: 'padding .4s',
         ...(hasWindowButtons
@@ -44,6 +46,8 @@ export function BudgetName({ children }: BudgetNameProps) {
           : {}),
       }}
     >
+      <TideLogoMark />
+      <View style={{ width: 10 }} />
       <EditableBudgetName />
 
       <View style={{ flex: 1, flexDirection: 'row' }} />
@@ -116,15 +120,17 @@ function EditableBudgetName() {
       variant="bare"
       style={{
         color: theme.sidebarBudgetName,
-        fontSize: 16,
-        fontWeight: 500,
+        fontSize: 20,
+        fontWeight: 800,
+        letterSpacing: '-0.02em',
         marginLeft: -5,
         flex: '0 auto',
       }}
       onClick={handleContextMenu}
+      aria-label={budgetName || t('Unnamed')}
     >
       <Text style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
-        {budgetName || t('Unnamed')}
+        {TIDE_APP_NAME}
       </Text>
       <SvgExpandArrow
         width={7}

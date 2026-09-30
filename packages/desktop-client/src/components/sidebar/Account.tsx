@@ -27,6 +27,7 @@ import { Notes } from '#components/Notes';
 import { DropHighlight, useDraggable, useDroppable } from '#components/sort';
 import type { OnDragChangeCallback, OnDropCallback } from '#components/sort';
 import { CellValue } from '#components/spreadsheet/CellValue';
+import { tideColors } from '#components/tide/tokens';
 import { useContextMenu } from '#hooks/useContextMenu';
 import { useDragRef } from '#hooks/useDragRef';
 import { useIsTestEnv } from '#hooks/useIsTestEnv';
@@ -37,12 +38,12 @@ import { useDispatch, useSelector } from '#redux';
 import type { Binding, SheetFields } from '#spreadsheet';
 
 export const accountNameStyle: CSSProperties = {
-  marginTop: -2,
-  marginBottom: 2,
-  paddingTop: 4,
-  paddingBottom: 4,
-  paddingRight: 15,
-  paddingLeft: 10,
+  margin: '1px 10px',
+  borderRadius: 8,
+  paddingTop: 6,
+  paddingBottom: 6,
+  paddingRight: 12,
+  paddingLeft: 12,
   textDecoration: 'none',
   color: theme.sidebarItemText,
   ':hover': { backgroundColor: theme.sidebarItemBackgroundHover },
@@ -172,14 +173,13 @@ export function Account<FieldName extends SheetFields<'account'>>({
               ...accountNameStyle,
               ...style,
               position: 'relative',
-              borderLeft: '4px solid transparent',
               ...(updated && {
                 fontWeight: 700,
                 color: theme.sidebarItemTextUpdated,
               }),
             }}
             activeStyle={{
-              borderColor: theme.sidebarItemAccentSelected,
+              backgroundColor: tideColors.tealSoft,
               color: theme.sidebarItemTextSelected,
               // This is kind of a hack, but we don't ever want the account
               // that the user is looking at to be "bolded" which means it

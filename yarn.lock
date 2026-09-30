@@ -243,6 +243,7 @@ __metadata:
     "@codemirror/state": "npm:^6.7.1"
     "@codemirror/view": "npm:^6.43.6"
     "@emotion/css": "npm:^11.13.5"
+    "@fontsource-variable/figtree": "npm:^5.3.0"
     "@fontsource-variable/inter": "npm:^5.2.8"
     "@fontsource/redacted-script": "npm:^5.2.8"
     "@internationalized/date": "npm:^3.12.2"
@@ -4482,6 +4483,13 @@ __metadata:
   version: 0.2.12
   resolution: "@floating-ui/utils@npm:0.2.12"
   checksum: 10/ec4e176fb22d33d75df752c5acf82dcaacae40ed2d09c1a5015cb4081318fff20260db216678e952344b95f90c6b43214762b69eba7c51556ecd82c35a795cff
+  languageName: node
+  linkType: hard
+
+"@fontsource-variable/figtree@npm:^5.3.0":
+  version: 5.3.0
+  resolution: "@fontsource-variable/figtree@npm:5.3.0"
+  checksum: 10/505c5cfdcebd2c8bab51d45801d6e3cf51dcacfd3571206bd61182c080a938e10560cf78df5efb7b2e18d32bf4a3f7605c6071778a0bcaa6d09265f15430f781
   languageName: node
   linkType: hard
 

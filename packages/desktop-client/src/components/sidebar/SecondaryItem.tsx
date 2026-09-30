@@ -11,6 +11,8 @@ import { Block } from '@actual-app/components/block';
 import { theme } from '@actual-app/components/theme';
 import { View } from '@actual-app/components/view';
 
+import { tideColors } from '#components/tide/tokens';
+
 import { accountNameStyle } from './Account';
 import { ItemContent } from './ItemContent';
 
@@ -44,11 +46,11 @@ export function SecondaryItem({
       style={{
         flexDirection: 'row',
         alignItems: 'center',
-        height: 16,
+        height: 20,
       }}
     >
-      {Icon && <Icon width={12} height={12} />}
-      <Block style={{ marginLeft: Icon ? 8 : 0, color: 'inherit' }}>
+      {Icon && <Icon width={16} height={16} />}
+      <Block style={{ marginLeft: Icon ? 10 : 0, color: 'inherit' }}>
         {title}
       </Block>
     </View>
@@ -59,16 +61,20 @@ export function SecondaryItem({
       <ItemContent
         style={{
           ...accountNameStyle,
+          fontSize: 14,
           color: theme.sidebarItemText,
-          paddingLeft: 14 + indent,
+          paddingTop: 8,
+          paddingBottom: 8,
+          margin: '1px 10px',
+          borderRadius: 9,
+          paddingLeft: 12 + indent,
           fontWeight: bold ? fontWeight : null,
           ':hover': { backgroundColor: theme.sidebarItemBackgroundHover },
         }}
         to={to}
         onClick={onClick}
         activeStyle={{
-          borderLeft: '4px solid ' + theme.sidebarItemTextSelected,
-          paddingLeft: 14 - 4 + indent,
+          backgroundColor: tideColors.tealSoft,
           color: theme.sidebarItemTextSelected,
           fontWeight: bold ? fontWeight : null,
         }}

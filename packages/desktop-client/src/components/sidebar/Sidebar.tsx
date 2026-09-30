@@ -95,6 +95,7 @@ export function Sidebar() {
             color: theme.sidebarItemText,
             height: '100%',
             backgroundColor: theme.sidebarBackground,
+            borderRight: `1px solid ${theme.cardBorder}`,
             '& .float': {
               opacity: isFloating ? 1 : 0,
               transition: 'opacity .25s, width .25s',

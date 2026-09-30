@@ -1,0 +1,130 @@
+/*
+ * Tide theme. Layered on top of light.css: the palette is remapped (purple ->
+ * Tide teal, navy -> Tide cool greys) and the surfaces that differ from the
+ * stock light theme are overridden below. Spec: tide/DESIGN.md.
+ */
+:root {
+  --font-family: 'Figtree Variable', -apple-system, BlinkMacSystemFont,
+    'Helvetica Neue', sans-serif;
+
+  --palette-purple50: #f1faf7;
+  --palette-purple100: #e3f4ef;
+  --palette-purple125: #d0ede5;
+  --palette-purple150: #bfe6da;
+  --palette-purple200: #8fd6c2;
+  --palette-purple300: #3fbf9e;
+  --palette-purple400: #1c9585;
+  --palette-purple500: #0e7c72;
+  --palette-purple600: #0a6960;
+  --palette-purple700: #0a5f57;
+  --palette-purple800: #084a44;
+  --palette-purple900: #063a35;
+
+  --palette-navy50: #f8faf9;
+  --palette-navy100: #eef2f1;
+  --palette-navy150: #e2e8e6;
+  --palette-navy200: #d3dcd9;
+  --palette-navy300: #a9b5b1;
+  --palette-navy400: #7a8783;
+  --palette-navy500: #5b6a65;
+  --palette-navy600: #4e5c58;
+  --palette-navy700: #3b4945;
+  --palette-navy800: #25302d;
+  --palette-navy900: #15201e;
+
+  --color-pageBackground: #f3f6f5;
+  --color-pageBackgroundModalActive: #e2e8e6;
+  --color-pageBackgroundTopLeft: #f3f6f5;
+  --color-pageBackgroundBottomRight: #dff2ec;
+  --color-pageBackgroundLineTop: #ffffff;
+  --color-pageBackgroundLineMid: #f3f6f5;
+  --color-pageBackgroundLineBottom: #dff2ec;
+  --color-pageText: #15201e;
+  --color-pageTextLight: #5b6a65;
+  --color-pageTextSubdued: #7a8783;
+  --color-pageTextDark: #15201e;
+  --color-pageTextPositive: #0a5f57;
+  --color-pageTextLink: #0e7c72;
+  --color-pageTextLinkLight: #3fbf9e;
+
+  --color-cardBackground: #ffffff;
+  --color-cardBorder: #e2e8e6;
+  --color-cardShadow: rgba(21, 32, 30, 0.06);
+
+  --color-tableBackground: #ffffff;
+  --color-tableRowBackgroundHover: #f3f7f6;
+  --color-tableHeaderText: #4e5c58;
+  --color-tableHeaderBackground: #f8faf9;
+  --color-tableBorder: #eef2f1;
+  --color-tableBorderSelected: #0e7c72;
+  --color-tableBorderHover: #3fbf9e;
+  --color-tableBorderSeparator: #d3dcd9;
+  --color-tableRowBackgroundHighlight: #e3f4ef;
+  --color-tableRowBackgroundHighlightText: #0a5f57;
+  --color-tableRowHeaderBackground: #f8faf9;
+  --color-tableRowHeaderText: #15201e;
+
+  --color-numberPositive: #0a6e57;
+  --color-numberNegative: #b83a26;
+
+  --color-sidebarBackground: #fafcfb;
+  --color-sidebarItemBackgroundHover: #eef2f1;
+  --color-sidebarItemAccentSelected: #0e7c72;
+  --color-sidebarItemText: #3b4945;
+  --color-sidebarItemTextSelected: #0a5f57;
+  --color-sidebarBudgetName: #15201e;
+
+  --color-menuItemTextSelected: #0e7c72;
+  --color-menuBorderHover: #bfe6da;
+  --color-menuAutoCompleteBackground: #ffffff;
+  --color-menuAutoCompleteBackgroundHover: #eef2f1;
+  --color-menuAutoCompleteText: #15201e;
+  --color-menuAutoCompleteTextHover: #0a5f57;
+  --color-menuAutoCompleteTextHeader: #5b6a65;
+
+  --color-mobileHeaderBackground: #f3f6f5;
+  --color-mobileHeaderText: #15201e;
+  --color-mobileHeaderTextSubdued: #5b6a65;
+  --color-mobileHeaderTextHover: rgba(21, 32, 30, 0.08);
+  --color-mobilePageBackground: #f3f6f5;
+  --color-mobileNavBackground: #ffffff;
+  --color-mobileNavItem: #5b6a65;
+  --color-mobileNavItemSelected: #0e7c72;
+  --color-mobileTransactionSelected: #0e7c72;
+  --color-mobileViewTheme: #f3f6f5;
+  --color-mobileConfigServerViewTheme: #0e7c72;
+
+  --color-buttonPrimaryBackground: #0e7c72;
+  --color-buttonPrimaryBackgroundHover: #0a6960;
+  --color-buttonPrimaryShadow: rgba(14, 124, 114, 0.25);
+  --color-buttonNormalBorder: #d3dcd9;
+  --color-buttonNormalSelectedBackground: #0e7c72;
+
+  --color-formInputBorderSelected: #0e7c72;
+  --color-formInputShadowSelected: #bfe6da;
+  --color-formInputTextHighlight: #0e7c72;
+  --color-checkboxBackgroundSelected: #0e7c72;
+  --color-checkboxBorderSelected: #0e7c72;
+
+  --color-pillBackgroundSelected: #dff2ec;
+  --color-pillTextSelected: #0a5f57;
+  --color-pillBorderSelected: #0e7c72;
+
+  --color-reportsRed: #c94a31;
+  --color-reportsBlue: #0e7c72;
+  --color-reportsGreen: #1c9585;
+  --color-reportsChartFill: #5ed3b5;
+
+  --color-budgetOtherMonth: #f8faf9;
+  --color-budgetHeaderOtherMonth: #f8faf9;
+
+  --color-chartQual1: #0e7c72;
+  --color-chartQual2: #5ed3b5;
+  --color-chartQual3: #d9a21b;
+  --color-chartQual4: #e26b4a;
+  --color-chartQual5: #8466d8;
+  --color-chartQual6: #3a8dc2;
+  --color-chartQual7: #d2588f;
+  --color-chartQual8: #2fa36b;
+  --color-chartQual9: #7a8783;
+}
