@@ -39,6 +39,7 @@ import { useMultiuserEnabled } from './ServerContext';
 import { Settings } from './settings';
 import { FloatableSidebar } from './sidebar';
 import { ManageTagsPage } from './tags/ManageTagsPage';
+import { TideBudgetRoute } from './tide/budget/TideBudget';
 import { TideDashboard } from './tide/dashboard/TideDashboard';
 import { TideTransactions } from './tide/transactions/TideTransactions';
 import { Titlebar } from './Titlebar';
@@ -265,6 +266,17 @@ export function FinancesApp() {
 
                     <Route
                       path="/budget"
+                      element={
+                        <ErrorBoundary
+                          FallbackComponent={FeatureErrorFallback}
+                          resetKeys={[location.pathname]}
+                        >
+                          <TideBudgetRoute />
+                        </ErrorBoundary>
+                      }
+                    />
+                    <Route
+                      path="/budget/classic"
                       element={
                         <ErrorBoundary
                           FallbackComponent={FeatureErrorFallback}

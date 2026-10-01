@@ -40,6 +40,7 @@
     "#components/banksync/useBankSyncAccountSettings": "./src/components/banksync/useBankSyncAccountSettings.ts",
     "#components/budget": "./src/components/budget/index.tsx",
     "#components/budget/goals/actions": "./src/components/budget/goals/actions.ts",
+    "#components/responsive": "./src/components/responsive/index.tsx",
     "#components/tide/config": "./src/components/tide/config.ts",
     "#components/tide/tokens": "./src/components/tide/tokens.ts",
     "#components/tide/useTideMoney": "./src/components/tide/useTideMoney.ts",
