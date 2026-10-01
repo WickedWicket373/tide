@@ -74,9 +74,17 @@ app.post(
     try {
       // Tide: `withHoldings` asks SimpleFIN for the full account data (it
       // leaves investment holdings out of balances-only responses). The
-      // start date of "now" keeps the transaction list near empty.
+      // start date two days back keeps the transaction list short (a start
+      // date of "now" can land in the future after the timezone shift, and
+      // SimpleFIN then returns no accounts).
       const accounts = req.body?.withHoldings
-        ? await getAccounts(accessKey, null, new Date(), null, false)
+        ? await getAccounts(
+            accessKey,
+            null,
+            new Date(Date.now() - 2 * 864e5),
+            null,
+            false,
+          )
         : await getAccounts(accessKey, null, null, null, true);
 
       res.send({
