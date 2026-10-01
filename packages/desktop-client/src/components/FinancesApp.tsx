@@ -39,6 +39,7 @@ import { useMultiuserEnabled } from './ServerContext';
 import { Settings } from './settings';
 import { FloatableSidebar } from './sidebar';
 import { ManageTagsPage } from './tags/ManageTagsPage';
+import { TideAccounts } from './tide/accounts/TideAccounts';
 import { TideBudgetRoute } from './tide/budget/TideBudget';
 import { TideDashboard } from './tide/dashboard/TideDashboard';
 import { TideTransactions } from './tide/transactions/TideTransactions';
@@ -261,6 +262,7 @@ export function FinancesApp() {
                       path="/transactions"
                       element={<TideTransactions />}
                     />
+                    <Route path="/net-worth" element={<TideAccounts />} />
 
                     <Route path="/reports/*" element={<Reports />} />
 

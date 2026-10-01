@@ -12,6 +12,7 @@ import {
   SvgTideChevronDown,
   SvgTideChevronRight,
   SvgTideHome,
+  SvgTideLayers,
   SvgTidePie,
   SvgTideRules,
   SvgTideSettings,
@@ -68,6 +69,7 @@ export function PrimaryButtons() {
           ) : null
         }
       />
+      <Item title={t('Accounts')} Icon={SvgTideLayers} to="/net-worth" />
       <Item title={t('Budget')} Icon={SvgTidePie} to="/budget" />
       <Item
         title={t('More')}
