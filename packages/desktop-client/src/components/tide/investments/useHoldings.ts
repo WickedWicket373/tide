@@ -40,7 +40,9 @@ function readCache(): CacheEntry | null {
       typeof parsed === 'object' &&
       'fetchedAt' in parsed &&
       'accounts' in parsed &&
-      Array.isArray(parsed.accounts)
+      Array.isArray(parsed.accounts) &&
+      // An empty answer isn't worth keeping; ask again next visit.
+      parsed.accounts.length > 0
     ) {
       return parsed as CacheEntry;
     }
