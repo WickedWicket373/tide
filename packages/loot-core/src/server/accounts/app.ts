@@ -954,7 +954,9 @@ async function akahuStatus() {
   );
 }
 
-async function simpleFinAccounts() {
+async function simpleFinAccounts({
+  withHoldings = false,
+}: { withHoldings?: boolean } = {}) {
   const userToken = await asyncStorage.getItem('user-token');
 
   if (!userToken) {
@@ -969,7 +971,7 @@ async function simpleFinAccounts() {
   try {
     return await post(
       serverConfig.SIMPLEFIN_SERVER + '/accounts',
-      {},
+      withHoldings ? { withHoldings: true } : {},
       {
         'X-ACTUAL-TOKEN': userToken,
       },

@@ -252,7 +252,7 @@ export function TideInvestments() {
             style={{ fontSize: 13, fontWeight: 600, color: tideColors.subtle }}
           >
             {withCost.length === 0
-              ? t('Your bank doesn\'t report what you paid')
+              ? t("Your bank doesn't report what you paid")
               : t('{{percent}}% on what you put in', {
                   percent: ((gain / Math.max(1, costBasis)) * 100).toFixed(1),
                 })}

@@ -72,7 +72,12 @@ app.post(
     }
 
     try {
-      const accounts = await getAccounts(accessKey, null, null, null, true);
+      // Tide: `withHoldings` asks SimpleFIN for the full account data (it
+      // leaves investment holdings out of balances-only responses). The
+      // start date of "now" keeps the transaction list near empty.
+      const accounts = req.body?.withHoldings
+        ? await getAccounts(accessKey, null, new Date(), null, false)
+        : await getAccounts(accessKey, null, null, null, true);
 
       res.send({
         status: 'ok',

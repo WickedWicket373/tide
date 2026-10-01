@@ -127,7 +127,9 @@ export function useHoldings() {
   async function refresh() {
     setStatus('loading');
     try {
-      const response: unknown = await send('simplefin-accounts');
+      const response: unknown = await send('simplefin-accounts', {
+        withHoldings: true,
+      });
       const record = asRecord(response);
       if (record.error || record.error_code) {
         setStatus('error');
