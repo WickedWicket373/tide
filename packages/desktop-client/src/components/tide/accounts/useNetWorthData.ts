@@ -51,7 +51,10 @@ export function accountKind(account: AccountEntity, balance: number) {
   for (const [kind, pattern] of KIND_PATTERNS) {
     if (pattern.test(account.name)) {
       // "Auto loan" is a loan, not a vehicle.
-      if (kind === 'vehicles' && /loan/i.test(account.name)) return 'loans';
+      // A vehicle with a negative balance is the loan on it.
+      if (kind === 'vehicles' && (/loan/i.test(account.name) || balance < 0)) {
+        return 'loans';
+      }
       return kind;
     }
   }

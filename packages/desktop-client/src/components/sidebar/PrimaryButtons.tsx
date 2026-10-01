@@ -18,6 +18,7 @@ import {
   SvgTideSettings,
   SvgTideStore,
   SvgTideTag,
+  SvgTideTrend,
 } from '#components/tide/icons';
 import { TideCountBadge } from '#components/tide/TideCountBadge';
 import { useIsTestEnv } from '#hooks/useIsTestEnv';
@@ -71,6 +72,7 @@ export function PrimaryButtons() {
       />
       <Item title={t('Accounts')} Icon={SvgTideLayers} to="/net-worth" />
       <Item title={t('Budget')} Icon={SvgTidePie} to="/budget" />
+      <Item title={t('Investments')} Icon={SvgTideTrend} to="/investments" />
       <Item
         title={t('More')}
         Icon={isOpen ? SvgTideChevronDown : SvgTideChevronRight}

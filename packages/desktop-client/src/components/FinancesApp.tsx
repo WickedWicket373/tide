@@ -42,6 +42,7 @@ import { ManageTagsPage } from './tags/ManageTagsPage';
 import { TideAccounts } from './tide/accounts/TideAccounts';
 import { TideBudgetRoute } from './tide/budget/TideBudget';
 import { TideDashboard } from './tide/dashboard/TideDashboard';
+import { TideInvestments } from './tide/investments/TideInvestments';
 import { TideTransactions } from './tide/transactions/TideTransactions';
 import { Titlebar } from './Titlebar';
 import { Tour } from './tour/Tour';
@@ -263,6 +264,7 @@ export function FinancesApp() {
                       element={<TideTransactions />}
                     />
                     <Route path="/net-worth" element={<TideAccounts />} />
+                    <Route path="/investments" element={<TideInvestments />} />
 
                     <Route path="/reports/*" element={<Reports />} />
 

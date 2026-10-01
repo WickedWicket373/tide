@@ -10,14 +10,14 @@ import {
 } from '#components/tide/tokens';
 import { useTideMoney } from '#components/tide/useTideMoney';
 
-type Slice = { label: string; amount: number; color: string };
+export type Slice = { label: string; amount: number; color: string };
 
 type OwnOweCardProps = {
   assets: Slice[];
   debts: Slice[];
 };
 
-function Donut({ slices, total }: { slices: Slice[]; total: number }) {
+export function Donut({ slices, total }: { slices: Slice[]; total: number }) {
   const radius = 54;
   const circumference = 2 * Math.PI * radius;
   let offset = 0;
