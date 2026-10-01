@@ -81,7 +81,8 @@ app.post(
         ? await getAccounts(
             accessKey,
             null,
-            new Date(Date.now() - 2 * 864e5),
+            // Whole seconds: SimpleFIN rejects fractional timestamps.
+            new Date(Math.floor((Date.now() - 2 * 864e5) / 1000) * 1000),
             null,
             false,
           )
