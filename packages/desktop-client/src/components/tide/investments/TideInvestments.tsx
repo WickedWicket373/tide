@@ -43,7 +43,7 @@ function timeAgo(ms: number, t: ReturnType<typeof useTranslation>['t']) {
 export function TideInvestments() {
   const { t } = useTranslation();
   const money = useTideMoney();
-  const { accounts, fetchedAt, status, refresh } = useHoldings();
+  const { accounts, fetchedAt, lastCheck, status, refresh } = useHoldings();
   const [accountTab, setAccountTab] = useState('all');
   const [range, setRange] = useState<RangeId>('1Y');
   const history = useNetWorthData(range);
@@ -138,6 +138,22 @@ export function TideInvestments() {
               like Fidelity. They show up here after the bank reports them.
             </Trans>
           </span>
+          {lastCheck && status !== 'loading' && (
+            <span style={{ fontSize: 13, color: tideColors.lastPeriod }}>
+              {lastCheck.reason
+                ? t('Last check {{when}}: {{reason}}', {
+                    when: timeAgo(lastCheck.at, t),
+                    reason: lastCheck.reason,
+                  })
+                : t(
+                    'Last check {{when}}: your bank sent {{count}} accounts, none with holdings.',
+                    {
+                      when: timeAgo(lastCheck.at, t),
+                      count: lastCheck.accounts,
+                    },
+                  )}
+            </span>
+          )}
           {status !== 'no-server' && (
             <Button
               variant="normal"

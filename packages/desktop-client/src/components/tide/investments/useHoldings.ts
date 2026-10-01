@@ -77,11 +77,14 @@ function asRecord(value: unknown): Record<string, unknown> {
 }
 
 /** Turns SimpleFIN's account list into the shape the page uses. */
-function parseAccounts(response: unknown): HoldingsAccount[] {
+function rawAccounts(response: unknown): unknown[] {
   const root = asRecord(response);
   const data = asRecord(root.data ?? root);
-  const accounts = Array.isArray(data.accounts) ? data.accounts : [];
-  return accounts
+  return Array.isArray(data.accounts) ? data.accounts : [];
+}
+
+function parseAccounts(response: unknown): HoldingsAccount[] {
+  return rawAccounts(response)
     .map(item => {
       const account = asRecord(item);
       const id = String(account.id ?? '');
@@ -116,6 +119,43 @@ function parseAccounts(response: unknown): HoldingsAccount[] {
 
 type Status = 'idle' | 'loading' | 'ready' | 'error' | 'no-server';
 
+/** What the last check found, to explain an empty page. */
+export type HoldingsCheck = {
+  at: number;
+  accounts: number;
+  reason: string | null;
+};
+
+const ATTEMPT_KEY = 'tide-holdings-attempt-v1';
+// Without holdings, only check automatically about once an hour.
+const RETRY_MS = 60 * 60 * 1000;
+
+function readAttempt(): HoldingsCheck | null {
+  try {
+    const raw = window.localStorage.getItem(ATTEMPT_KEY);
+    const parsed: unknown = raw ? JSON.parse(raw) : null;
+    const record = asRecord(parsed);
+    if (typeof record.at === 'number') {
+      return {
+        at: record.at,
+        accounts: Number(record.accounts ?? 0),
+        reason: typeof record.reason === 'string' ? record.reason : null,
+      };
+    }
+  } catch {
+    // Ignore; a missing record just allows a check.
+  }
+  return null;
+}
+
+function writeAttempt(check: HoldingsCheck) {
+  try {
+    window.localStorage.setItem(ATTEMPT_KEY, JSON.stringify(check));
+  } catch {
+    // Not fatal.
+  }
+}
+
 /**
  * Investment holdings from the bank connection (SimpleFIN). Actual doesn't
  * keep holdings, so they're fetched from the server and cached in this
@@ -124,7 +164,13 @@ type Status = 'idle' | 'loading' | 'ready' | 'error' | 'no-server';
 export function useHoldings() {
   const serverStatus = useSyncServerStatus();
   const [entry, setEntry] = useState<CacheEntry | null>(readCache);
+  const [lastCheck, setLastCheck] = useState<HoldingsCheck | null>(readAttempt);
   const [status, setStatus] = useState<Status>(entry ? 'ready' : 'idle');
+
+  function recordCheck(check: HoldingsCheck) {
+    writeAttempt(check);
+    setLastCheck(check);
+  }
 
   async function refresh() {
     setStatus('loading');
@@ -134,21 +180,43 @@ export function useHoldings() {
       });
       const record = asRecord(response);
       if (record.error || record.error_code) {
+        recordCheck({
+          at: Date.now(),
+          accounts: 0,
+          reason: String(record.reason ?? record.error_code ?? record.error),
+        });
         setStatus('error');
         return;
       }
       const next = { fetchedAt: Date.now(), accounts: parseAccounts(response) };
+      recordCheck({
+        at: next.fetchedAt,
+        accounts: rawAccounts(response).length,
+        reason: null,
+      });
       writeCache(next);
       setEntry(next);
       setStatus('ready');
-    } catch {
+    } catch (error) {
+      recordCheck({
+        at: Date.now(),
+        accounts: 0,
+        reason: error instanceof Error ? error.message : String(error),
+      });
       setStatus('error');
     }
   }
 
   const isStale = !entry || Date.now() - entry.fetchedAt > MAX_AGE_MS;
+  const triedRecently =
+    !entry && lastCheck !== null && Date.now() - lastCheck.at < RETRY_MS;
   useEffect(() => {
-    if (serverStatus === 'online' && isStale && status === 'idle') {
+    if (
+      serverStatus === 'online' &&
+      isStale &&
+      !triedRecently &&
+      status === 'idle'
+    ) {
       void refresh();
     }
     // oxlint-disable-next-line react-hooks/exhaustive-deps -- fetch once per visit
@@ -157,6 +225,7 @@ export function useHoldings() {
   return {
     accounts: entry?.accounts ?? [],
     fetchedAt: entry?.fetchedAt ?? null,
+    lastCheck,
     status: serverStatus === 'no-server' && !entry ? 'no-server' : status,
     refresh,
   };
